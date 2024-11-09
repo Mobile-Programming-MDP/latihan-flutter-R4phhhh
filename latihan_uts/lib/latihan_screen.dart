@@ -85,10 +85,10 @@ class LatihanScreen extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ),
+                              ), 
                             ],
-                          ),
-                        ),
+                           ),
+                            ),
                         Expanded(
                           child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +219,7 @@ class LatihanScreen extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red[300]
+                        backgroundColor: Colors.red[300],
                       ),
                       child: const Padding(
                         padding: EdgeInsets.all(5),
