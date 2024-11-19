@@ -9,9 +9,8 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
-        // Navigate to the detail screen when the card is tapped
         Navigator.push(
           context,
           MaterialPageRoute(
