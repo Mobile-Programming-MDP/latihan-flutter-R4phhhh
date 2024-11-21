@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
@@ -19,7 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscurePassword = true;
 
   // TODO: Sign Up Method
-  void _signUp() {
+  void _signUp() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String name = _nameController.text.trim();
     final String username = _usernameController.text.trim();
     final String password = _passwordController.text.trim();
@@ -31,18 +33,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
       !password.contains(RegExp(r'[0-9]')) ||
       !password.contains(RegExp(r'[!@#\\\$%^&*(),.?":{}|<>]'))
     ) {
-      _errorText = 'Minimal 8 karakter. Harus mengandung huruf kapital, huruf kecil, angka numerik, dan simbol.';
+      setState(() {
+        _errorText = 'Minimal 8 karakter. Harus mengandung huruf kapital, huruf kecil, angka numerik, dan simbol.';
+      });
+      return;
     }
 
-    print("SIGN UP SUCCESSFUL");
-    print("Name: $name");
-    print("Username: $username");
-    print("Password: $password");
+    prefs.setString('fullname', name);
+    prefs.setString('username', username);
+    prefs.setString('password', password);
+
+    Navigator.pushReplacementNamed(context, '/signin');
   }
 
   // TODO: Dispose Method
   @override
   void dispose() {
+    super.dispose();
     // TODO: implement dispose
     _nameController.dispose();
     _usernameController.dispose();
@@ -129,7 +136,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             fontSize: 16,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () {},
+                            ..onTap = () {
+                              Navigator.pushNamed(context, '/signin');
+                            },
                         )
                       ]
                     ),
